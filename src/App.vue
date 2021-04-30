@@ -1,32 +1,41 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
+
+<script>
+export default {
+  data() {
+    return {}
+  },
+  computed: {
+    userBadge() {
+      if (this.$store.getters.userBadge.toLowerCase() === 'beginner') {
+        return this.$store.getters.userBadge + '*'
+      } else {
+        return this.$store.getters.userBadge
+      }
+    },
+    promoStatus(){
+      return this.$store.getters['promotions/promoStatus']
+    }
+  },
+  methods:{
+    ageDivideBy(passed){
+      this.$store.dispatch('ageDivideBy',{dividend: passed, num1: 100})
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  padding: 2rem;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+div {
+  font-size: 2rem;
 }
 </style>
